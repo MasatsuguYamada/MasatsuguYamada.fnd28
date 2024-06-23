@@ -9,27 +9,26 @@
 </head>
 
 <body>
-  <div>
-    <div>
-      データ呼び出し：
-      <input id="file" type="file" accept=".csv" value="データ読込み">
+    <div id="read">
+      データ読込：
+      データのパスを指定→
+      <input id="textBox" type="text" value="https://masatsuguyamada.github.io/MasatsuguYamada.fnd28/test.csv">
+      <input id="button" type = "button" value = "読込実行">
     </div>
     <p></p>
-    <div>
+    <div id="write">
       データ登録：開催年月日
-      <input type="date">　
+      <input type="date" id="registDate">　
       大会名
-      <input type="text">　
+      <input type="text" id="eventName">　
       記録
-      <input type="text" class="time">時間
-      <input type="text" class="time">分
-      <input type="text" class="time">秒　
-      <input type="button" value="登録">
+      <input type="text" class="time" id="hour">時間
+      <input type="text" class="time" id="minute">分
+      <input type="text" class="time" id="second">秒　
+      <input type="button" value="登録" id="registBtn">
     </div>
-  </div>
   <h1 id="title">フルマラソン３時間切りへの挑戦&#x1f3c3;</h1>
   <div id="data">
-    <p>ここに表示する</p>
   </div>
   <script type="text/javascript" src="script.js"></script>
 </body>
