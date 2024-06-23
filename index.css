@@ -1,7 +1,24 @@
 .time{
-  width: 20px;;
+  width: 20px;
 }
 
 #title{
   text-align:center;
+}
+
+#textBox{
+  width: 500px;
+}
+
+#read{
+  background-color: lightblue;
+}
+
+#write{
+  background-color: lightgoldenrodyellow;
+}
+
+.date{
+  background-color: red;
+  width:300px;
 }
