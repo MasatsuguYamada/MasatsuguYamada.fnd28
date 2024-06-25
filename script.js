@@ -1,81 +1,160 @@
 'use strict'
 // 1行目に記載している 'use strict' は削除しないでください
+//https://blog.ver001.com/javascript-table-sort/
 
+function outputData(arrayData){
+  const table = document.getElementById("table");
+  const dataBox = [];
 
-function viewData(record, arrayData){
-  const test = document.getElementById("data");
-  const add = [];
-  const btn = [];
-
-  for(let i=0; i<record; i++){
-    add[i] = [];
-    
-    add[i] = document.createElement("p");
-    test.appendChild(add[i]);
-    
-    add[i][0] = document.createElement("span");
-    add[i][0].setAttribute("class", `date`);
-    add[i][0].textContent = `${arrayData[i][0]}年${arrayData[i][1]}月${arrayData[i][2]}日`;
-    add[i].appendChild(add[i][0]);
-    
-    add[i][1] = document.createElement("span")
-    add[i][1].textContent = ` ${arrayData[i][3]} `;
-    add[i].appendChild(add[i][1]);
-
-
-    // if(arrayData[i][3] === "黒部マラソン"){
-    //   console.log("a");
-    //   btn[i] = document.createElement("button");
-    //   btn[i].setAttribute("id", `btn${i}`);
-    //   console.log(btn[i]);
-    //   btn[i].style.width = "50px";
-    //   btn[i].style.height = "20px";
-
-    //   add[i].appendChild(btn[i]);
-    //   console.log(document.getElementById(btn[i]));
-
-    
+  if(table.rows.length > 1){
+    while(table.rows.length>1){
+      table.deleteRow(-1);
+    }
   }
+
+  for(let i=0; i<arrayData.length; i++){
+    dataBox[i] = {};
+    
+    dataBox[i] = document.createElement("tr");
+    table.appendChild(dataBox[i]);
+    
+    dataBox[i].date = document.createElement("td");
+    dataBox[i].date.textContent = arrayData[i][0];
+    dataBox[i].appendChild(dataBox[i].date);
+
+    dataBox[i].eventName = document.createElement("td");
+    dataBox[i].eventName.textContent = arrayData[i][1];
+    dataBox[i].appendChild(dataBox[i].eventName);
+
+    dataBox[i].record = document.createElement("td");
+    dataBox[i].record.textContent = arrayData[i][2];
+    dataBox[i].appendChild(dataBox[i].record);
+  }
+}
+
+const dataUpBtn = document.getElementById("dateSortUp");
+dataUpBtn.addEventListener("click", dateSortUp);
+function dateSortUp(){
+  importString.sort(function(a,b){
+    if((a[0]>b[0]) === true){
+      return -1;
+    }else{
+      return 1;
+    }
+  });
+  outputData(importString);
+  dataUpBtn.style.backgroundColor= "yellow";
+  dataDownBtn.style.backgroundColor= "";
+  eventBtn.style.backgroundColor= "";
+  timeUpBtn.style.backgroundColor= "";
+  timeDownBtn.style.backgroundColor= "";
+}
+
+const dataDownBtn = document.getElementById("dateSortDown");
+dataDownBtn.addEventListener("click", dateSortDown);
+function dateSortDown(){
+  importString.sort(function(a,b){
+    if((a[0]<b[0]) === true){
+      return -1;
+    }else{
+      return 1;
+    }
+  });
+  outputData(importString);
+  dataUpBtn.style.backgroundColor= "";
+  dataDownBtn.style.backgroundColor= "yellow";
+  eventBtn.style.backgroundColor= "";
+  timeUpBtn.style.backgroundColor= "";
+  timeDownBtn.style.backgroundColor= "";
 
 }
 
-const csvData = document.getElementById("data");
+const eventBtn = document.getElementById("eventSort");
+eventBtn.addEventListener("click", eventSort);
+function eventSort(){
+  importString.sort(function(a,b){
+    if((a[0]>b[0]) === true){
+      return -1;
+    }else{
+      return 1;
+    }
+  });
+  outputData(importString);
+  dataUpBtn.style.backgroundColor= "";
+  dataDownBtn.style.backgroundColor= "";
+  eventBtn.style.backgroundColor= "yellow";
+  timeUpBtn.style.backgroundColor= "";
+  timeDownBtn.style.backgroundColor= "";
+}
 
-function outputData(path){
+const timeUpBtn = document.getElementById("timeSortUp");
+timeUpBtn.addEventListener("click", timeSortUp);
+function timeSortUp(){
+  importString.sort(function(a,b){
+    if((a[0]>b[0]) === true){
+      return -1;
+    }else{
+      return 1;
+    }
+  });
+  outputData(importString);
+  dataUpBtn.style.backgroundColor= "";
+  dataDownBtn.style.backgroundColor= "";
+  eventBtn.style.backgroundColor= "";
+  timeUpBtn.style.backgroundColor= "yellow";
+  timeDownBtn.style.backgroundColor= "";
+}
+
+const timeDownBtn = document.getElementById("timeSortDown");
+timeDownBtn.addEventListener("click", timeSortDown);
+function timeSortDown(){
+  importString.sort(function(a,b){
+    if((a[0]<b[0]) === true){
+      return -1;
+    }else{
+      return 1;
+    }
+  });
+  outputData(importString);
+  dataUpBtn.style.backgroundColor= "";
+  dataDownBtn.style.backgroundColor= "";
+  eventBtn.style.backgroundColor= "";
+  timeUpBtn.style.backgroundColor= "";
+  timeDownBtn.style.backgroundColor= "yellow";
+}
+
+
+let importString = [];
+function makeArray(path){
   const request = new XMLHttpRequest(); // HTTPでファイルを読み込む
 	request.addEventListener('load', (event) => { // ロードさせ実行
 		const response = event.target.responseText; // 受け取ったテキストを返す
-    console.log(response);
-    //改行コードで区切って行の配列を作成
+    // 改行コードで区切って行の配列を作成
     const tmp = response.split("\n");
-    console.log("改行コードで区切って行の配列を作成");
-    console.log(tmp);
 
     //行ごとにカンマで区切り、２次元配列を作成
     const lines = tmp.map(line => line.split(','));
-    console.log("行ごとにカンマで区切り、２次元配列を作成");
     lines.pop();
-    console.log(lines);
+    importString = lines;
+    outputData(lines);
 
-    const lenRecord = tmp.length-1;
-
-    viewData(lenRecord, lines);
-
+    
 	});
 	request.open('GET', path, true); // csvのパスを指定
 	request.send();
 }
 
-const dataPath = document.getElementById("textBox")
 
-function clickfunc(){
-
-  outputData(dataPath.value);
-}
-
+const dataPath = document.getElementById("textBox");
 document.getElementById("button").addEventListener("click", clickfunc);
-
-
+function clickfunc(){
+  makeArray(dataPath.value);
+  dataUpBtn.style.backgroundColor= "";
+  dataDownBtn.style.backgroundColor= "";
+  eventBtn.style.backgroundColor= "";
+  timeUpBtn.style.backgroundColor= "";
+  timeDownBtn.style.backgroundColor= "";
+}
 
 
 function registFunc(){
