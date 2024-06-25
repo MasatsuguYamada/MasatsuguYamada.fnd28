@@ -18,18 +18,26 @@
     <p></p>
     <div id="write">
       データ登録：開催年月日
-      <input type="date" id="registDate">　
+      <input type="date" id="registDate">
       大会名
-      <input type="text" id="eventName">　
+      <input type="text" id="eventName">
       記録
       <input type="text" class="time" id="hour">時間
       <input type="text" class="time" id="minute">分
-      <input type="text" class="time" id="second">秒　
+      <input type="text" class="time" id="second">秒
       <input type="button" value="登録" id="registBtn">
     </div>
-  <h1 id="title">フルマラソン３時間切りへの挑戦&#x1f3c3;</h1>
+  <h1 id="title">フルマラソン大会の記録&#x1f3c3;</h1>
   <div id="data">
   </div>
+
+  <table border="1" align="center" id="table">
+    <tr>
+      <th width="150"><input type="button" value="↓" id="dateSortUp">  開催年月日  <input type="button" value="↑" id="dateSortDown"></th>
+      <th width="250">  大会名  <input type="button" value=" " id="eventSort"></th>
+      <th width="200"><input type="button" value="↓" id="timeSortUp">  記録  <input type="button" value="↑" id="timeSortDown"></th>
+    </tr>
+
   <script type="text/javascript" src="script.js"></script>
 </body>
 
