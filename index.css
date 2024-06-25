@@ -19,6 +19,12 @@
 }
 
 .date{
+  padding:100,100,100,100;
   background-color: red;
-  width:300px;
+  display: inline-block;
+  width:200px;
+}
+
+.pTagData{
+  background-color: yellow;
 }
