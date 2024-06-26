@@ -183,6 +183,11 @@ function registFunc(){
   arrayInputData[2] = `${timeH.value}時間${timeH.value}分${timeH.value}秒`;
   importString.unshift(arrayInputData);
   outputData(importString);
+  dateUpBtn.style.backgroundColor= "";
+  dateDownBtn.style.backgroundColor= "";
+  eventBtn.style.backgroundColor= "";
+  timeUpBtn.style.backgroundColor= "";
+  timeDownBtn.style.backgroundColor= "";
 }
 
 const registDate = document.getElementById("registDate");
