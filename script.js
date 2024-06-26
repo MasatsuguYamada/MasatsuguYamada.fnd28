@@ -181,7 +181,7 @@ function registFunc(){
   arrayInputData[0] = date;
   arrayInputData[1] = eventName.value;
   arrayInputData[2] = `${timeH.value}時間${timeH.value}分${timeH.value}秒`;
-  importString.push(arrayInputData);
+  importString.unshift(arrayInputData);
   outputData(importString);
 }
 
