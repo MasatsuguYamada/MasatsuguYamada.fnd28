@@ -32,8 +32,8 @@ function outputData(arrayData){
   }
 }
 
-const dataUpBtn = document.getElementById("dateSortUp");
-dataUpBtn.addEventListener("click", dateSortUp);
+const dateUpBtn = document.getElementById("dateSortUp");
+dateUpBtn.addEventListener("click", dateSortUp);
 function dateSortUp(){
   importString.sort(function(a,b){
     if((a[0]>b[0]) === true){
@@ -42,16 +42,18 @@ function dateSortUp(){
       return 1;
     }
   });
+
   outputData(importString);
-  dataUpBtn.style.backgroundColor= "yellow";
-  dataDownBtn.style.backgroundColor= "";
+  dateUpBtn.style.backgroundColor= "yellow";
+  dateDownBtn.style.backgroundColor= "";
   eventBtn.style.backgroundColor= "";
   timeUpBtn.style.backgroundColor= "";
   timeDownBtn.style.backgroundColor= "";
+  console.log(importString);
 }
 
-const dataDownBtn = document.getElementById("dateSortDown");
-dataDownBtn.addEventListener("click", dateSortDown);
+const dateDownBtn = document.getElementById("dateSortDown");
+dateDownBtn.addEventListener("click", dateSortDown);
 function dateSortDown(){
   importString.sort(function(a,b){
     if((a[0]<b[0]) === true){
@@ -61,8 +63,8 @@ function dateSortDown(){
     }
   });
   outputData(importString);
-  dataUpBtn.style.backgroundColor= "";
-  dataDownBtn.style.backgroundColor= "yellow";
+  dateUpBtn.style.backgroundColor= "";
+  dateDownBtn.style.backgroundColor= "yellow";
   eventBtn.style.backgroundColor= "";
   timeUpBtn.style.backgroundColor= "";
   timeDownBtn.style.backgroundColor= "";
@@ -73,15 +75,15 @@ const eventBtn = document.getElementById("eventSort");
 eventBtn.addEventListener("click", eventSort);
 function eventSort(){
   importString.sort(function(a,b){
-    if((a[0]>b[0]) === true){
+    if((a[1]>b[1]) === true){
       return -1;
     }else{
       return 1;
     }
   });
   outputData(importString);
-  dataUpBtn.style.backgroundColor= "";
-  dataDownBtn.style.backgroundColor= "";
+  dateUpBtn.style.backgroundColor= "";
+  dateDownBtn.style.backgroundColor= "";
   eventBtn.style.backgroundColor= "yellow";
   timeUpBtn.style.backgroundColor= "";
   timeDownBtn.style.backgroundColor= "";
@@ -91,15 +93,15 @@ const timeUpBtn = document.getElementById("timeSortUp");
 timeUpBtn.addEventListener("click", timeSortUp);
 function timeSortUp(){
   importString.sort(function(a,b){
-    if((a[0]>b[0]) === true){
+    if((a[2]>b[2]) === true){
       return -1;
     }else{
       return 1;
     }
   });
   outputData(importString);
-  dataUpBtn.style.backgroundColor= "";
-  dataDownBtn.style.backgroundColor= "";
+  dateUpBtn.style.backgroundColor= "";
+  dateDownBtn.style.backgroundColor= "";
   eventBtn.style.backgroundColor= "";
   timeUpBtn.style.backgroundColor= "yellow";
   timeDownBtn.style.backgroundColor= "";
@@ -109,15 +111,15 @@ const timeDownBtn = document.getElementById("timeSortDown");
 timeDownBtn.addEventListener("click", timeSortDown);
 function timeSortDown(){
   importString.sort(function(a,b){
-    if((a[0]<b[0]) === true){
+    if((a[2]<b[2]) === true){
       return -1;
     }else{
       return 1;
     }
   });
   outputData(importString);
-  dataUpBtn.style.backgroundColor= "";
-  dataDownBtn.style.backgroundColor= "";
+  dateUpBtn.style.backgroundColor= "";
+  dateDownBtn.style.backgroundColor= "";
   eventBtn.style.backgroundColor= "";
   timeUpBtn.style.backgroundColor= "";
   timeDownBtn.style.backgroundColor= "yellow";
@@ -138,7 +140,6 @@ function makeArray(path){
     importString = lines;
     outputData(lines);
 
-    
 	});
 	request.open('GET', path, true); // csvのパスを指定
 	request.send();
@@ -149,20 +150,38 @@ const dataPath = document.getElementById("textBox");
 document.getElementById("button").addEventListener("click", clickfunc);
 function clickfunc(){
   makeArray(dataPath.value);
-  dataUpBtn.style.backgroundColor= "";
-  dataDownBtn.style.backgroundColor= "";
+  dateUpBtn.style.backgroundColor= "";
+  dateDownBtn.style.backgroundColor= "";
   eventBtn.style.backgroundColor= "";
   timeUpBtn.style.backgroundColor= "";
   timeDownBtn.style.backgroundColor= "";
 }
 
+function makeRegistDate(inputDate){
+  let makeDate = "";
+  let length = inputDate.value.length;
+  for(let i=0; i<length+1; i++){
+    if(i === 4){
+      makeDate += "年";  
+    } else if (i === 7){
+      makeDate += "月";
+    } else if (i === 10){
+      makeDate += "日";
+    } else {
+      makeDate += inputDate.value[i];
+    }
+  }
+  return makeDate;
+}
 
 function registFunc(){
-  console.log(registDate.value);
-  console.log(eventName.value);
-  console.log(timeH.value);
-  console.log(timeM.value);
-  console.log(timeS.value);
+  const arrayInputData = [];
+  let date = makeRegistDate(registDate);
+  arrayInputData[0] = date;
+  arrayInputData[1] = eventName.value;
+  arrayInputData[2] = `${timeH.value}時間${timeH.value}分${timeH.value}秒`;
+  importString.push(arrayInputData);
+  outputData(importString);
 }
 
 const registDate = document.getElementById("registDate");
@@ -170,26 +189,29 @@ const eventName = document.getElementById("eventName");
 const timeH = document.getElementById("hour");
 const timeM = document.getElementById("minute");
 const timeS = document.getElementById("second");
+
 const registBtn = document.getElementById("registBtn");
-
-
 registBtn.addEventListener("click", registFunc);
 
-// const input = `
-// 1,10,100
-// 2,20,200
-// 3,30,300
-// `
-// _(input)
-//     .split("\n")
-//     .compact()
-//     .map(x => _.zipObject(
-//       ['one', 'ten', 'hundred'],
-//       x.split(',')
-//     ))
-//     .value()
-// /* =>
-//  [ { one: '1', ten: '10', hundred: '100' },
-//    { one: '2', ten: '20', hundred: '200' },
-//    { one: '3', ten: '30', hundred: '300' } ]
-// */
+function resetFunc(){
+  registDate.value = "";
+  eventName.value = "";
+  timeH.value = "";
+  timeM.value = "";
+  timeS.value = "";
+}
+const resetBtn = document.getElementById("resetBtn")
+resetBtn.addEventListener("click", resetFunc);
+
+
+function storageFunc(){
+let bom  = new Uint8Array([0xEF, 0xBB, 0xBF]);
+let blob = new Blob([bom, importString],{type:"text/csv"});
+let link = document.createElement('a');
+link.href = URL.createObjectURL(blob);
+link.download = 'DownloadData.csv';
+link.click();
+}
+
+const storageBtn = document.getElementById("storage");
+storageBtn.addEventListener("click", storageFunc);
