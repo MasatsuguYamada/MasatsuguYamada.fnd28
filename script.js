@@ -180,7 +180,7 @@ function registFunc(){
   let date = makeRegistDate(registDate);
   arrayInputData[0] = date;
   arrayInputData[1] = eventName.value;
-  arrayInputData[2] = `${timeH.value}時間${timeH.value}分${timeH.value}秒`;
+  arrayInputData[2] = `${timeH.value}時間${timeM.value}分${timeS.value}秒`;
   importString.unshift(arrayInputData);
   outputData(importString);
   dateUpBtn.style.backgroundColor= "";
