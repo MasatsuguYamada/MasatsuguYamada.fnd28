@@ -3,7 +3,11 @@
 }
 
 #title{
+  background-color: white;
   text-align:center;
+  width: 500px;
+  margin: 0 auto;
+
 }
 
 #textBox{
@@ -27,4 +31,8 @@
 
 .pTagData{
   background-color: yellow;
+}
+
+#table{
+  background-color: lightgoldenrodyellow;
 }
