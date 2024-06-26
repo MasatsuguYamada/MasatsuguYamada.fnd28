@@ -7,7 +7,6 @@
   text-align:center;
   width: 500px;
   margin: 0 auto;
-
 }
 
 #textBox{
@@ -15,24 +14,29 @@
 }
 
 #read{
-  background-color: lightblue;
+  /* background-color: lightblue; */
+  color:white;
+  background-color: rgba(0,0,0,0.7);
+  height:50px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
 }
 
 #write{
-  background-color: lightgoldenrodyellow;
-}
-
-.date{
-  padding:100,100,100,100;
-  background-color: red;
-  display: inline-block;
-  width:200px;
-}
-
-.pTagData{
-  background-color: yellow;
+  color:white;
+  background-color: rgba(0,0,0,0.7);
+  /* background-color: lightgoldenrodyellow; */
+  height:50px;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
 }
 
 #table{
-  background-color: lightgoldenrodyellow;
+  background-color: rgba(250,250,210,0.8);
+}
+
+#title{
+  background-color:  rgba(250,250,210,0.8);
 }
