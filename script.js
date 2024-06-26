@@ -132,6 +132,7 @@ function makeArray(path){
 	request.addEventListener('load', (event) => { // ロードさせ実行
 		const response = event.target.responseText; // 受け取ったテキストを返す
     // 改行コードで区切って行の配列を作成
+    console.log(response);
     const tmp = response.split("\n");
 
     //行ごとにカンマで区切り、２次元配列を作成
@@ -203,14 +204,19 @@ function resetFunc(){
 const resetBtn = document.getElementById("resetBtn")
 resetBtn.addEventListener("click", resetFunc);
 
-
 function storageFunc(){
-let bom  = new Uint8Array([0xEF, 0xBB, 0xBF]);
-let blob = new Blob([bom, importString],{type:"text/csv"});
-let link = document.createElement('a');
-link.href = URL.createObjectURL(blob);
-link.download = 'DownloadData.csv';
-link.click();
+  let storageString = "";
+  let len = importString.length
+  for(let i=0; i<len; i++){
+    storageString += `${importString[i][0]},${importString[i][1]},${importString[i][2]}\n`
+  }
+
+  let bom  = new Uint8Array([0xEF, 0xBB, 0xBF]);
+  let blob = new Blob([bom, storageString],{type:"text/csv"});
+  let link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'DownloadData.csv';
+  link.click();
 }
 
 const storageBtn = document.getElementById("storage");
